@@ -15,15 +15,62 @@ class HomeViewController: UIViewController {
         view.backgroundColor = .background
         
         let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "Hello Gadão"
         label.textColor = .white
+        ///label.backgroundColor = .red
+        label.layer.borderWidth = 1
+        label.layer.borderColor = UIColor.red.cgColor
+        label.textAlignment = .center
         label.font = .systemFont(ofSize: 24, weight: .bold)
-        label.translatesAutoresizingMaskIntoConstraints = false
         
-        label.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        label.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+        
+        let brazil = UILabel()
+        brazil.translatesAutoresizingMaskIntoConstraints = false
+        brazil.text = "Brasil 🇧🇷🇧🇷🇧🇷"
+        brazil.textColor = .white
+        brazil.textAlignment = .center
+        brazil.font = .systemFont(ofSize: 28, weight: .bold)
+        brazil.layer.borderWidth = 2
+        brazil.layer.borderColor = UIColor.white.cgColor
         
         view.addSubview(label)
+        view.addSubview(brazil)
+        
+        //add constraint after add widget in parent view
+        NSLayoutConstraint.activate([
+            //center in view parent
+            label.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            label.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            
+            //top of the parent
+            //label.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 16),
+            
+            //bottom of the parent
+            //label.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: 16),
+            
+            //right of the parent
+            //label.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+            
+            // left of the prent for this you need to declare negative constant "margin"
+            //label.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 32)
+            //label.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -32),
+            
+            //define width and height
+            //label.widthAnchor.constraint(equalToConstant: 100),
+            //label.heightAnchor.constraint(equalToConstant: 50)
+            
+            //define width and height with % "multiplier"
+            label.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.4),
+            label.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.1),
+            
+            brazil.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.5),
+            brazil.heightAnchor.constraint(equalToConstant: 100),
+            brazil.topAnchor.constraint(equalTo: label.bottomAnchor, constant: 16),
+            //brazil.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 16),
+            brazil.centerXAnchor.constraint(equalTo: label.centerXAnchor)
+            
+        ])
     }
 }
 
