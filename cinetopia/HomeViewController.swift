@@ -8,12 +8,8 @@
 import UIKit
 
 class HomeViewController: UIViewController {
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        // Do any additional setup after loading the view.
-        view.backgroundColor = .background
-        
+    
+    private lazy var helloLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "Hello Gadão"
@@ -24,7 +20,10 @@ class HomeViewController: UIViewController {
         label.textAlignment = .center
         label.font = .systemFont(ofSize: 24, weight: .bold)
         
-        
+        return label
+    }()
+    
+    private lazy var brazilLabel: UILabel = {
         let brazil = UILabel()
         brazil.translatesAutoresizingMaskIntoConstraints = false
         brazil.text = "Brasil 🇧🇷🇧🇷🇧🇷"
@@ -34,14 +33,28 @@ class HomeViewController: UIViewController {
         brazil.layer.borderWidth = 2
         brazil.layer.borderColor = UIColor.white.cgColor
         
-        view.addSubview(label)
-        view.addSubview(brazil)
+        return brazil
+    }()
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        // Do any additional setup after loading the view.
+        view.backgroundColor = .background
         
-        //add constraint after add widget in parent view
+        addViews()
+        setupConstraints()
+    }
+    
+    private func addViews() {
+        view.addSubview(helloLabel)
+        view.addSubview(brazilLabel)
+    }
+    
+    private func setupConstraints() {
         NSLayoutConstraint.activate([
             //center in view parent
-            label.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            label.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            helloLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            helloLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor),
             
             //top of the parent
             //label.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 16),
@@ -61,15 +74,14 @@ class HomeViewController: UIViewController {
             //label.heightAnchor.constraint(equalToConstant: 50)
             
             //define width and height with % "multiplier"
-            label.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.4),
-            label.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.1),
+            helloLabel.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.4),
+            helloLabel.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.1),
             
-            brazil.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.5),
-            brazil.heightAnchor.constraint(equalToConstant: 100),
-            brazil.topAnchor.constraint(equalTo: label.bottomAnchor, constant: 16),
+            brazilLabel.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.5),
+            brazilLabel.heightAnchor.constraint(equalToConstant: 100),
+            brazilLabel.topAnchor.constraint(equalTo: helloLabel.bottomAnchor, constant: 16),
             //brazil.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 16),
-            brazil.centerXAnchor.constraint(equalTo: label.centerXAnchor)
-            
+            brazilLabel.centerXAnchor.constraint(equalTo: helloLabel.centerXAnchor)
         ])
     }
 }
