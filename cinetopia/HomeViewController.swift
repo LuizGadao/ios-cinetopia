@@ -9,31 +9,40 @@ import UIKit
 
 class HomeViewController: UIViewController {
     
-    private lazy var helloLabel: UILabel = {
+    private lazy var logoImgView: UIImageView = {
+        let imgView = UIImageView(image: UIImage.logo)
+        imgView.translatesAutoresizingMaskIntoConstraints = false
+        return imgView
+    }()
+    
+    private lazy var coupleImgView: UIImageView = {
+        let imgView = UIImageView(image: UIImage.couple)
+        imgView.translatesAutoresizingMaskIntoConstraints = false
+        return imgView
+    }()
+    
+    private lazy var welcomeLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "Hello Gadão"
+        label.text = "O lugar ideal para buscar, salvar e organizar seus filmes favoritos!"
         label.textColor = .white
-        ///label.backgroundColor = .red
-        label.layer.borderWidth = 1
-        label.layer.borderColor = UIColor.red.cgColor
+        label.font = .systemFont(ofSize: 20)
+        label.numberOfLines = 0
         label.textAlignment = .center
-        label.font = .systemFont(ofSize: 24, weight: .bold)
         
         return label
     }()
     
-    private lazy var brazilLabel: UILabel = {
-        let brazil = UILabel()
-        brazil.translatesAutoresizingMaskIntoConstraints = false
-        brazil.text = "Brasil 🇧🇷🇧🇷🇧🇷"
-        brazil.textColor = .white
-        brazil.textAlignment = .center
-        brazil.font = .systemFont(ofSize: 28, weight: .bold)
-        brazil.layer.borderWidth = 2
-        brazil.layer.borderColor = UIColor.white.cgColor
+    private lazy var welcomeButton: UIButton = {
+        let button = UIButton()
+        button.translatesAutoresizingMaskIntoConstraints =  false
+        button.setTitle("Quero comerçar", for: .normal)
+        button.setTitleColor(.background, for: .normal)
+        button.titleLabel?.font = .boldSystemFont(ofSize: 20)
+        button.backgroundColor = .backgroundButton
+        button.layer.cornerRadius = 32
         
-        return brazil
+        return button
     }()
 
     override func viewDidLoad() {
@@ -46,42 +55,31 @@ class HomeViewController: UIViewController {
     }
     
     private func addViews() {
-        view.addSubview(helloLabel)
-        view.addSubview(brazilLabel)
+        view.addSubview(logoImgView)
+        view.addSubview(coupleImgView)
+        view.addSubview(welcomeLabel)
+        view.addSubview(welcomeButton)
     }
     
     private func setupConstraints() {
         NSLayoutConstraint.activate([
-            //center in view parent
-            helloLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            helloLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            logoImgView.topAnchor.constraint(
+                equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 64
+            ),
+            logoImgView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             
-            //top of the parent
-            //label.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 16),
+            coupleImgView.topAnchor.constraint(equalTo: logoImgView.bottomAnchor, constant: 32),
+            coupleImgView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             
-            //bottom of the parent
-            //label.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: 16),
+            welcomeLabel.topAnchor.constraint(equalTo: coupleImgView.bottomAnchor, constant: 16),
+            welcomeLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
+            welcomeLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
             
-            //right of the parent
-            //label.trailingAnchor.constraint(equalTo: view.trailingAnchor)
-            
-            // left of the prent for this you need to declare negative constant "margin"
-            //label.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 32)
-            //label.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -32),
-            
-            //define width and height
-            //label.widthAnchor.constraint(equalToConstant: 100),
-            //label.heightAnchor.constraint(equalToConstant: 50)
-            
-            //define width and height with % "multiplier"
-            helloLabel.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.4),
-            helloLabel.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.1),
-            
-            brazilLabel.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.5),
-            brazilLabel.heightAnchor.constraint(equalToConstant: 100),
-            brazilLabel.topAnchor.constraint(equalTo: helloLabel.bottomAnchor, constant: 16),
-            //brazil.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 16),
-            brazilLabel.centerXAnchor.constraint(equalTo: helloLabel.centerXAnchor)
+            welcomeButton.topAnchor.constraint(equalTo: welcomeLabel.bottomAnchor, constant: 32),
+            welcomeButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -64),
+            welcomeButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 64),
+            welcomeButton.heightAnchor.constraint(equalToConstant: 64)
+        
         ])
     }
 }
