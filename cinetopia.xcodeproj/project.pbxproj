@@ -15,6 +15,7 @@
 		498CC6BC2B8603FB004AED03 /* cinetopiaTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 498CC6BB2B8603FB004AED03 /* cinetopiaTests.swift */; };
 		498CC6C62B8603FB004AED03 /* cinetopiaUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 498CC6C52B8603FB004AED03 /* cinetopiaUITests.swift */; };
 		498CC6C82B8603FB004AED03 /* cinetopiaUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 498CC6C72B8603FB004AED03 /* cinetopiaUITestsLaunchTests.swift */; };
+		49A087D82B88ECA300D5CF2C /* MoviesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49A087D72B88ECA300D5CF2C /* MoviesViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,6 +48,7 @@
 		498CC6C12B8603FB004AED03 /* cinetopiaUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = cinetopiaUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		498CC6C52B8603FB004AED03 /* cinetopiaUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = cinetopiaUITests.swift; sourceTree = "<group>"; };
 		498CC6C72B8603FB004AED03 /* cinetopiaUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = cinetopiaUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		49A087D72B88ECA300D5CF2C /* MoviesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoviesViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,6 +105,7 @@
 				498CC6AD2B8603FB004AED03 /* Assets.xcassets */,
 				498CC6AF2B8603FB004AED03 /* LaunchScreen.storyboard */,
 				498CC6B22B8603FB004AED03 /* Info.plist */,
+				49A087D72B88ECA300D5CF2C /* MoviesViewController.swift */,
 			);
 			path = cinetopia;
 			sourceTree = "<group>";
@@ -257,6 +260,7 @@
 				498CC6A92B8603FA004AED03 /* HomeViewController.swift in Sources */,
 				498CC6A52B8603FA004AED03 /* AppDelegate.swift in Sources */,
 				498CC6A72B8603FA004AED03 /* SceneDelegate.swift in Sources */,
+				49A087D82B88ECA300D5CF2C /* MoviesViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

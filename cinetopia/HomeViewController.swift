@@ -40,7 +40,11 @@ class HomeViewController: UIViewController {
         button.setTitleColor(.background, for: .normal)
         button.titleLabel?.font = .boldSystemFont(ofSize: 20)
         button.backgroundColor = .backgroundButton
+        button.layer.borderWidth = 2
+        button.layer.borderColor = UIColor.white.cgColor
         button.layer.cornerRadius = 32
+        
+        button.addTarget(self, action: #selector(onButtonClick), for: .touchUpInside)
         
         return button
     }()
@@ -49,9 +53,15 @@ class HomeViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         view.backgroundColor = .background
+        title = "Home"
         
         addViews()
         setupConstraints()
+    }
+    
+    @objc private func onButtonClick() {
+        print("on button clicked")
+        navigationController?.pushViewController(MoviesViewController(), animated: true)
     }
     
     private func addViews() {
@@ -64,7 +74,7 @@ class HomeViewController: UIViewController {
     private func setupConstraints() {
         NSLayoutConstraint.activate([
             logoImgView.topAnchor.constraint(
-                equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 64
+                equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 32
             ),
             logoImgView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             
