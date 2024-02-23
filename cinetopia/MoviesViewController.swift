@@ -22,7 +22,15 @@ class MoviesViewController: UIViewController, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        return UITableViewCell()
+        let cell = tableView.dequeueReusableCell(withIdentifier: "nameCell", for: indexPath)
+        var config = cell.defaultContentConfiguration()
+        config.text = names[indexPath.row]
+        config.textProperties.color = .white
+        config.textProperties.font = .italicSystemFont(ofSize: 24)
+        cell.contentConfiguration = config
+        cell.backgroundColor = .clear
+        
+        return cell
     }
     
     private lazy var tableView: UITableView = {
@@ -30,6 +38,7 @@ class MoviesViewController: UIViewController, UITableViewDataSource {
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.backgroundColor = .clear
         tableView.dataSource = self
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "nameCell")
         
         return tableView
     }()
