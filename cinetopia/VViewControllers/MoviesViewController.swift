@@ -9,12 +9,7 @@ import UIKit
 
 class MoviesViewController: UIViewController {
     
-    private var names = [
-        "Luiz 🇧🇷",
-        "Carlos 😎",
-        "Luiz 🤪",
-        "Carlos 🥶"
-    ]
+    private let cellIdentifier = "movie-cell"
     
     private lazy var tableView: UITableView = {
         let tableView = UITableView()
@@ -22,7 +17,7 @@ class MoviesViewController: UIViewController {
         tableView.backgroundColor = .clear
         tableView.dataSource = self
         tableView.delegate = self
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "nameCell")
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: cellIdentifier)
         
         return tableView
     }()
@@ -70,13 +65,13 @@ class MoviesViewController: UIViewController {
 extension MoviesViewController : UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return names.count
+        return movies.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "nameCell", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath)
         var config = cell.defaultContentConfiguration()
-        config.text = names[indexPath.row]
+        config.text = movies[indexPath.row].title
         config.textProperties.color = .white
         config.textProperties.font = .italicSystemFont(ofSize: 24)
         cell.contentConfiguration = config
