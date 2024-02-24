@@ -7,7 +7,7 @@
 
 import UIKit
 
-class MoviesViewController: UIViewController, UITableViewDataSource {
+class MoviesViewController: UIViewController {
     
     private var names = [
         "Luiz 🇧🇷",
@@ -16,33 +16,16 @@ class MoviesViewController: UIViewController, UITableViewDataSource {
         "Carlos 🥶"
     ]
     
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return names.count
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "nameCell", for: indexPath)
-        var config = cell.defaultContentConfiguration()
-        config.text = names[indexPath.row]
-        config.textProperties.color = .white
-        config.textProperties.font = .italicSystemFont(ofSize: 24)
-        cell.contentConfiguration = config
-        cell.backgroundColor = .clear
-        
-        return cell
-    }
-    
     private lazy var tableView: UITableView = {
         let tableView = UITableView()
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.backgroundColor = .clear
         tableView.dataSource = self
+        tableView.delegate = self
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "nameCell")
         
         return tableView
     }()
-    
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -82,4 +65,28 @@ class MoviesViewController: UIViewController, UITableViewDataSource {
         navigationItem.setHidesBackButton(true, animated: true)
     }
 
+}
+
+extension MoviesViewController : UITableViewDataSource, UITableViewDelegate {
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return names.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "nameCell", for: indexPath)
+        var config = cell.defaultContentConfiguration()
+        config.text = names[indexPath.row]
+        config.textProperties.color = .white
+        config.textProperties.font = .italicSystemFont(ofSize: 24)
+        cell.contentConfiguration = config
+        cell.backgroundColor = .clear
+        
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+    }
+    
 }
