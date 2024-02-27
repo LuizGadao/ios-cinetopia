@@ -17,15 +17,43 @@ class MovieTableViewCell: UITableViewCell {
         return image
     } ()
     
+    private lazy var titleLabel: UILabel = {
+       let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = .systemFont(ofSize: 20.0, weight: .bold)
+        label.textColor = .white
+        label.text = "My title here..."
+        
+        return label
+    }()
+    
+    private lazy var releaseDateLabel: UILabel = {
+       let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = .systemFont(ofSize: 18.0)
+        label.textColor = .white.withAlphaComponent(0.75)
+        label.text = "10/10/2099"
+        
+        return label
+    }()
+    
     private func addSubvies() {
         addSubview(posterImage)
+        addSubview(titleLabel)
+        addSubview(releaseDateLabel)
     }
     
     private func setupConstraints() {
         NSLayoutConstraint.activate([
             posterImage.topAnchor.constraint(equalTo: topAnchor, constant: 16),
             posterImage.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
-            posterImage.bottomAnchor.constraint(equalTo: bottomAnchor, constant: 16)
+            posterImage.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -16),
+            posterImage.widthAnchor.constraint(equalToConstant: 100),
+            
+            titleLabel.centerYAnchor.constraint(equalTo: centerYAnchor),
+            titleLabel.leadingAnchor.constraint(equalTo: posterImage.trailingAnchor, constant: 16),
+            releaseDateLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 8),
+            releaseDateLabel.leadingAnchor.constraint(equalTo: titleLabel.leadingAnchor, constant: 0)
         ])
     }
     
@@ -33,6 +61,7 @@ class MovieTableViewCell: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         addSubvies()
         setupConstraints()
+        backgroundColor = .background
     }
     
     required init?(coder: NSCoder) {
