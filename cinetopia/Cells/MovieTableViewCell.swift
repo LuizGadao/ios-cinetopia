@@ -10,10 +10,11 @@ import UIKit
 class MovieTableViewCell: UITableViewCell {
 
     private lazy var posterImage: UIImageView = {
-        let image = UIImageView(image: UIImage.avengers)
+        let image = UIImageView()
         image.translatesAutoresizingMaskIntoConstraints = false
-        image.contentMode = .scaleAspectFit
+        image.contentMode = .scaleAspectFill
         image.layer.cornerRadius = 12
+        image.layer.masksToBounds = true
         return image
     } ()
     
@@ -22,6 +23,7 @@ class MovieTableViewCell: UITableViewCell {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = .systemFont(ofSize: 20.0, weight: .bold)
         label.textColor = .white
+        label.numberOfLines = 0
         label.text = "My title here..."
         
         return label
@@ -37,6 +39,12 @@ class MovieTableViewCell: UITableViewCell {
         return label
     }()
     
+    func setupCell(movie: Movie) {
+        titleLabel.text = movie.title
+        posterImage.image = UIImage(named: movie.image)
+        releaseDateLabel.text = "Lançamento: \(movie.releaseDate)"
+    }
+    
     private func addSubvies() {
         addSubview(posterImage)
         addSubview(titleLabel)
@@ -50,8 +58,10 @@ class MovieTableViewCell: UITableViewCell {
             posterImage.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -16),
             posterImage.widthAnchor.constraint(equalToConstant: 100),
             
-            titleLabel.centerYAnchor.constraint(equalTo: centerYAnchor),
+            titleLabel.centerYAnchor.constraint(equalTo: centerYAnchor, constant: -16),
             titleLabel.leadingAnchor.constraint(equalTo: posterImage.trailingAnchor, constant: 16),
+            titleLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
+            
             releaseDateLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 8),
             releaseDateLabel.leadingAnchor.constraint(equalTo: titleLabel.leadingAnchor, constant: 0)
         ])

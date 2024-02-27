@@ -17,7 +17,7 @@ class MoviesViewController: UIViewController {
         tableView.backgroundColor = .clear
         tableView.dataSource = self
         tableView.delegate = self
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: cellIdentifier)
+        tableView.register(MovieTableViewCell.self, forCellReuseIdentifier: cellIdentifier)
         
         return tableView
     }()
@@ -48,10 +48,6 @@ class MoviesViewController: UIViewController {
     
     private func setupNavigationBar() {
         title = "Filmes populares"
-        /*navigationController?.navigationBar.titleTextAttributes = [
-            NSAttributedString.Key.foregroundColor : UIColor.white
-        ]
-      */
         
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationController?.navigationBar.largeTitleTextAttributes = [
@@ -70,19 +66,26 @@ extension MoviesViewController : UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath)
-        var config = cell.defaultContentConfiguration()
-        config.text = movies[indexPath.row].title
-        config.textProperties.color = .white
-        config.textProperties.font = .italicSystemFont(ofSize: 24)
-        cell.contentConfiguration = config
-        cell.backgroundColor = .clear
-        
-        return cell
+        if let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as? MovieTableViewCell {
+            cell.setupCell(movie: movies[indexPath.row])
+            cell.selectionStyle = .none
+            
+            return cell
+        }
+        return UITableViewCell()
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+        let detailViewController = MovieDetailViewController(movie: movies[indexPath.row])
+        navigationController?.pushViewController(
+            detailViewController,
+            animated: true
+        )
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        160
     }
     
 }

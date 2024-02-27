@@ -17,6 +17,7 @@
 		498CC6C82B8603FB004AED03 /* cinetopiaUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 498CC6C72B8603FB004AED03 /* cinetopiaUITestsLaunchTests.swift */; };
 		4992A31E2B8A62960088E841 /* Movie.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4992A31D2B8A62960088E841 /* Movie.swift */; };
 		4992A3212B8A673B0088E841 /* MovieTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4992A3202B8A673B0088E841 /* MovieTableViewCell.swift */; };
+		4992A3252B8DEA5B0088E841 /* MovieDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4992A3242B8DEA5B0088E841 /* MovieDetailViewController.swift */; };
 		49A087D82B88ECA300D5CF2C /* MoviesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49A087D72B88ECA300D5CF2C /* MoviesViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -52,6 +53,7 @@
 		498CC6C72B8603FB004AED03 /* cinetopiaUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = cinetopiaUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		4992A31D2B8A62960088E841 /* Movie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Movie.swift; sourceTree = "<group>"; };
 		4992A3202B8A673B0088E841 /* MovieTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieTableViewCell.swift; sourceTree = "<group>"; };
+		4992A3242B8DEA5B0088E841 /* MovieDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetailViewController.swift; sourceTree = "<group>"; };
 		49A087D72B88ECA300D5CF2C /* MoviesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoviesViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -145,6 +147,7 @@
 			children = (
 				498CC6A82B8603FA004AED03 /* HomeViewController.swift */,
 				49A087D72B88ECA300D5CF2C /* MoviesViewController.swift */,
+				4992A3242B8DEA5B0088E841 /* MovieDetailViewController.swift */,
 			);
 			path = VViewControllers;
 			sourceTree = "<group>";
@@ -291,6 +294,7 @@
 				498CC6A52B8603FA004AED03 /* AppDelegate.swift in Sources */,
 				4992A3212B8A673B0088E841 /* MovieTableViewCell.swift in Sources */,
 				498CC6A72B8603FA004AED03 /* SceneDelegate.swift in Sources */,
+				4992A3252B8DEA5B0088E841 /* MovieDetailViewController.swift in Sources */,
 				49A087D82B88ECA300D5CF2C /* MoviesViewController.swift in Sources */,
 				4992A31E2B8A62960088E841 /* Movie.swift in Sources */,
 			);
