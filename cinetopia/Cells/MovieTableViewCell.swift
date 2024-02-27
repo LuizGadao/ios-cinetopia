@@ -21,7 +21,7 @@ class MovieTableViewCell: UITableViewCell {
     private lazy var titleLabel: UILabel = {
        let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = .systemFont(ofSize: 20.0, weight: .bold)
+        label.font = .systemFont(ofSize: 18.0, weight: .bold)
         label.textColor = .white
         label.numberOfLines = 0
         label.text = "My title here..."
@@ -32,7 +32,7 @@ class MovieTableViewCell: UITableViewCell {
     private lazy var releaseDateLabel: UILabel = {
        let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = .systemFont(ofSize: 18.0)
+        label.font = .systemFont(ofSize: 16.0)
         label.textColor = .white.withAlphaComponent(0.75)
         label.text = "10/10/2099"
         
@@ -91,6 +91,8 @@ class MovieTableViewCell: UITableViewCell {
 
 }
 
-#Preview {
-    MovieTableViewCell()
-}
+/*
+ #Preview {
+ MovieTableViewCell()
+ }
+ */
