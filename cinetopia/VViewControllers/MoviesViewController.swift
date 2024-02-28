@@ -11,10 +11,8 @@ class MoviesViewController: UIViewController {
     
     private var listMovies = movies
     private let cellIdentifier = "movie-cell"
-    private lazy var tapGesture: UITapGestureRecognizer = {
-        let tagGesture = UITapGestureRecognizer(target: self, action: #selector(hideKeyboard))
-        return tagGesture
-    }()
+    
+    private let movieService = MovieService()
     
     private lazy var tableView: UITableView = {
         let tableView = UITableView()
@@ -48,6 +46,8 @@ class MoviesViewController: UIViewController {
         setupNavigationBar()
         addSubViews()
         setupConstraints()
+        
+        movieService.loadMovies()
     }
     
     @objc private func hideKeyboard() {
@@ -146,10 +146,8 @@ extension MoviesViewController : UISearchBarDelegate {
             listMovies = movies.filter({ movie in
                 movie.title.lowercased().contains(searchText.lowercased())
             })
-           //view.addGestureRecognizer(tapGesture)
         } else {
             listMovies = movies
-            //view.removeGestureRecognizer(tapGesture)
         }
         
         tableView.reloadData()
