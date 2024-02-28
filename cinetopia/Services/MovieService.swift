@@ -10,16 +10,18 @@ import Foundation
 
 struct MovieService {
     
-    func loadMovies() {
+    func getMovies() -> [Movie]? {
+        var movies: [Movie] = []
+        
         let urlStr = "http://localhost:3000/movies"
         guard let url = URL(string: urlStr) else {
-            return
+            return nil
         }
         
         let task = URLSession.shared.dataTask(with: url) { data, response, error in
-            print("data: \(data)")
-            print("response: \(response)")
-            print("error: \(error)")
+            //print("data: \(String(describing: data))")
+            //print("response: \(String(describing: response))")
+            //print("error: \(String(describing: error))")
             
             guard let data = data,
                   let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200
@@ -28,14 +30,15 @@ struct MovieService {
                     }
             
             do {
-                let movies = try JSONDecoder().decode([Movie].self, from: data)
-                print(movies)
+                movies = try JSONDecoder().decode([Movie].self, from: data)
+                //print(movies)
             } catch (let error) {
                 print("error-parse-json: \(error)")
             }
         }
         
         task.resume()
+        return movies
     }
     
 }

@@ -47,7 +47,8 @@ class MoviesViewController: UIViewController {
         addSubViews()
         setupConstraints()
         
-        movieService.loadMovies()
+        let movies = movieService.getMovies()
+        print("movies: \(movies)")
     }
     
     @objc private func hideKeyboard() {
