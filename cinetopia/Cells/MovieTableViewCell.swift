@@ -15,6 +15,8 @@ class MovieTableViewCell: UITableViewCell {
         image.contentMode = .scaleAspectFill
         image.layer.cornerRadius = 12
         image.layer.masksToBounds = true
+        image.layer.borderColor = UIColor.white.cgColor
+        image.layer.borderWidth = 1
         return image
     } ()
     
@@ -91,8 +93,8 @@ class MovieTableViewCell: UITableViewCell {
 
 }
 
-/*
+
  #Preview {
  MovieTableViewCell()
  }
- */
+ 

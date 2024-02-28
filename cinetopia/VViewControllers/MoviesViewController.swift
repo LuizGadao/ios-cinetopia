@@ -9,7 +9,12 @@ import UIKit
 
 class MoviesViewController: UIViewController {
     
+    private var listMovies = movies
     private let cellIdentifier = "movie-cell"
+    private lazy var tapGesture: UITapGestureRecognizer = {
+        let tagGesture = UITapGestureRecognizer(target: self, action: #selector(hideKeyboard))
+        return tagGesture
+    }()
     
     private lazy var tableView: UITableView = {
         let tableView = UITableView()
@@ -22,10 +27,22 @@ class MoviesViewController: UIViewController {
         return tableView
     }()
     
+    private lazy var searchBar: UISearchBar = {
+       let searchBar = UISearchBar()
+        searchBar.translatesAutoresizingMaskIntoConstraints = false
+        searchBar.placeholder = "Pesquisar filme"
+        searchBar.searchTextField.backgroundColor = .white
+        //searchBar.backgroundColor = .backgroundButton
+        searchBar.delegate = self
+        
+        return searchBar
+    }()
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        print("view-did-load")
+        
         // Do any additional setup after loading the view.
         view.backgroundColor = .background
         setupNavigationBar()
@@ -33,8 +50,13 @@ class MoviesViewController: UIViewController {
         setupConstraints()
     }
     
+    @objc private func hideKeyboard() {
+        searchBar.resignFirstResponder()
+    }
+    
     private func addSubViews() {
         view.addSubview(tableView)
+        view.addSubview(searchBar)
     }
     
     private func setupConstraints() {
@@ -47,14 +69,39 @@ class MoviesViewController: UIViewController {
     }
     
     private func setupNavigationBar() {
-        title = "Filmes populares"
+        navigationItem.titleView = searchBar
         
-        navigationController?.navigationBar.prefersLargeTitles = true
+        navigationItem.setHidesBackButton(true, animated: true)
+        let navigationBar = navigationController?.navigationBar
+        navigationBar?.standardAppearance.configureWithOpaqueBackground()
+        navigationBar?.standardAppearance.backgroundColor = .background
+        navigationBar?.standardAppearance.largeTitleTextAttributes = [
+            NSAttributedString.Key.foregroundColor: UIColor.white
+        ]
+        navigationBar?.scrollEdgeAppearance = navigationBar?.standardAppearance
         navigationController?.navigationBar.largeTitleTextAttributes = [
             NSAttributedString.Key.foregroundColor : UIColor.white
         ]
-        
-        navigationItem.setHidesBackButton(true, animated: true)
+        title = "Filmes populares"
+    }
+    
+    
+    override func viewWillAppear(_ animated: Bool) {
+        print("view-will-appear")
+        navigationController?.navigationBar.prefersLargeTitles = true
+        searchBar.showsCancelButton = listMovies.count != movies.count
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        print("view-did-apper")
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        print("view-will-disappear")
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        print("view-did-disappear")
     }
 
 }
@@ -62,12 +109,12 @@ class MoviesViewController: UIViewController {
 extension MoviesViewController : UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return movies.count
+        return listMovies.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as? MovieTableViewCell {
-            cell.setupCell(movie: movies[indexPath.row])
+            cell.setupCell(movie: listMovies[indexPath.row])
             cell.selectionStyle = .none
             
             return cell
@@ -77,7 +124,8 @@ extension MoviesViewController : UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        let detailViewController = MovieDetailViewController(movie: movies[indexPath.row])
+        let detailViewController = MovieDetailViewController(movie: listMovies[indexPath.row])
+        hideKeyboard()
         navigationController?.pushViewController(
             detailViewController,
             animated: true
@@ -88,4 +136,42 @@ extension MoviesViewController : UITableViewDataSource, UITableViewDelegate {
         160
     }
     
+}
+
+extension MoviesViewController : UISearchBarDelegate {
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        print(searchText)
+        
+        if searchText.count > 0 {
+            listMovies = movies.filter({ movie in
+                movie.title.lowercased().contains(searchText.lowercased())
+            })
+           //view.addGestureRecognizer(tapGesture)
+        } else {
+            listMovies = movies
+            //view.removeGestureRecognizer(tapGesture)
+        }
+        
+        tableView.reloadData()
+    }
+    
+    func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
+        searchBar.showsCancelButton = true
+        return true
+    }
+    
+    func searchBarShouldEndEditing(_ searchBar: UISearchBar) -> Bool {
+        searchBar.showsCancelButton = false
+        return true
+    }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        print("clear button clicked")
+        searchBar.showsCancelButton = false
+        hideKeyboard()
+    }
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.resignFirstResponder()
+    }
 }

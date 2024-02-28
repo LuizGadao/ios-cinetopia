@@ -86,6 +86,7 @@ class MovieDetailViewController: UIViewController {
         view.backgroundColor = .background
         //title = movie.title
         
+        navigationController?.navigationBar.prefersLargeTitles = false
         addViews()
         setupConstraints()
         
@@ -94,6 +95,10 @@ class MovieDetailViewController: UIViewController {
         rateLabel.text = movie.rate.description
         infoLabel.text = "Lançamento: \(movie.releaseDate)"
         synopisisLabel.text = movie.synopsis
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        navigationController?.navigationBar.prefersLargeTitles = false
     }
     
     private func addViews() {
@@ -107,13 +112,12 @@ class MovieDetailViewController: UIViewController {
     
     private func setupConstraints() {
         NSLayoutConstraint.activate([
-            image.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: -32),
+            image.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 16),
             image.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
             image.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
             image.heightAnchor.constraint(equalToConstant: 260),
             
             titleLabel.topAnchor.constraint(equalTo: image.bottomAnchor, constant: 16),
-            titleLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             titleLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
             titleLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -48),
             
