@@ -9,7 +9,7 @@ import UIKit
 
 class MoviesViewController: UIViewController {
     
-    private var listMovies = movies
+    private var listMovies: [Movie] = [] //movies
     private let cellIdentifier = "movie-cell"
     
     private let movieService = MovieService()
@@ -49,6 +49,14 @@ class MoviesViewController: UIViewController {
         
         movieService.getMovies { movies in
             print("get movies in ViewController\n\(movies)")
+            guard let movies else {
+                return
+            }
+            
+            DispatchQueue.main.async {
+                self.listMovies = movies
+                self.tableView.reloadData()
+            }
         }
     }
     

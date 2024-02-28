@@ -30,7 +30,6 @@ struct MovieService {
                         onComplete(nil)
                         return
                     }
-            
             do {
                 movies = try JSONDecoder().decode([Movie].self, from: data)
                 //print(movies)
