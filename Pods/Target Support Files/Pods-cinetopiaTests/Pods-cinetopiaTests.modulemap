@@ -1,0 +1,6 @@
+framework module Pods_cinetopiaTests {
+  umbrella header "Pods-cinetopiaTests-umbrella.h"
+
+  export *
+  module * { export * }
+}
