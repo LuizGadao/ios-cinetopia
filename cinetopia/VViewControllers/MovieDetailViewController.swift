@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 class MovieDetailViewController: UIViewController {
     
@@ -90,7 +91,7 @@ class MovieDetailViewController: UIViewController {
         addViews()
         setupConstraints()
         
-        image.image = UIImage(named: movie.image)
+        image.kf.setImage(with: URL(string: movie.image))
         titleLabel.text = movie.title
         rateLabel.text = movie.rate.description
         infoLabel.text = "Lançamento: \(movie.releaseDate)"
