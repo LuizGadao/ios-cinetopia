@@ -9,7 +9,9 @@ import UIKit
 
 class MoviesViewController: UIViewController {
     
-    private var listMovies: [Movie] = [] //movies
+    private var listMovies: [Movie] = []
+    private var movies: [Movie] = []
+    
     private let cellIdentifier = "movie-cell"
     
     private let movieService = MovieService()
@@ -46,6 +48,7 @@ class MoviesViewController: UIViewController {
         setupNavigationBar()
         addSubViews()
         setupConstraints()
+        
         Task {
             await getMovies()
         }
@@ -53,7 +56,8 @@ class MoviesViewController: UIViewController {
     
     private func getMovies() async {
         do {
-            listMovies = try await movieService.getMovies()
+            movies = try await movieService.getMovies()
+            listMovies = movies
             tableView.reloadData()
         } catch(let error) {
             print(error)
