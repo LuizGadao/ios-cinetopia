@@ -46,20 +46,17 @@ class MoviesViewController: UIViewController {
         setupNavigationBar()
         addSubViews()
         setupConstraints()
-        getMovies()
+        Task {
+            await getMovies()
+        }
     }
     
-    private func getMovies() {
-        movieService.getMovies { result in
-            switch result {
-            case .success(let movies):
-                    DispatchQueue.main.async {
-                        self.listMovies = movies
-                        self.tableView.reloadData()
-                    }
-            case .failure(let error):
-                print(error)
-            }
+    private func getMovies() async {
+        do {
+            listMovies = try await movieService.getMovies()
+            tableView.reloadData()
+        } catch(let error) {
+            print(error)
         }
     }
     
