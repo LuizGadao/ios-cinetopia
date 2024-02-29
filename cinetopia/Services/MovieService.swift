@@ -8,14 +8,20 @@
 import Foundation
 
 
+enum MovieServiceError: Error {
+    case invalidURL
+    case invalidResponse
+    case invalidJson
+}
+
 struct MovieService {
     
-    func getMovies(onComplete: @escaping ([Movie]?) -> Void) {
-        var movies: [Movie] = []
+    func getMovies(onComplete: @escaping (Result<[Movie], MovieServiceError>) -> Void) {
+        
         
         let urlStr = "http://localhost:3000/movies"
         guard let url = URL(string: urlStr) else {
-            onComplete(nil)
+            onComplete(.failure(.invalidURL))
             return
         }
         
@@ -27,14 +33,15 @@ struct MovieService {
             guard let data = data,
                   let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200
                     else {
-                        onComplete(nil)
+                        onComplete(.failure(.invalidResponse))
                         return
                     }
             do {
-                movies = try JSONDecoder().decode([Movie].self, from: data)
+                let movies = try JSONDecoder().decode([Movie].self, from: data)
                 //print(movies)
-                onComplete(movies)
+                onComplete(.success(movies))
             } catch (let error) {
+                onComplete(.failure(.invalidJson))
                 print("error-parse-json: \(error)")
             }
         }
