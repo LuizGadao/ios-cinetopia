@@ -24,10 +24,10 @@ class FavoriteMovieViewCell: UICollectionViewCell {
     private lazy var titleMovie: UILabel = {
         let title = UILabel()
         title.translatesAutoresizingMaskIntoConstraints = false
-        title.font = .systemFont(ofSize: 18, weight: .medium)
+        title.font = .systemFont(ofSize: 20, weight: .medium)
         title.textColor = .black
         title.textAlignment = .center
-        title.numberOfLines = 0
+        title.numberOfLines = 1
         
         return title
     }()
@@ -45,7 +45,6 @@ class FavoriteMovieViewCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        backgroundColor = .darkGray
         addSubview(imageView)
         addSubview(titleMovie)
         addSubview(favoriteButton)

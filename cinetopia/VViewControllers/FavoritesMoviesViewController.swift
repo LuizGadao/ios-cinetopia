@@ -14,16 +14,18 @@ class FavoritesMoviesViewController: UIViewController {
     // MARK: - UI components
     
     private lazy var collectionView: UICollectionView = {
+        let layout = UICollectionViewFlowLayout()
+        layout.sectionInset = UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16)
         let collection = UICollectionView(frame: .zero,
-                                          collectionViewLayout: UICollectionViewFlowLayout())
+                                          collectionViewLayout: layout)
         collection.translatesAutoresizingMaskIntoConstraints = false
-        collection.backgroundColor = .yellow
+        collection.backgroundColor = .clear
         collection.register(
             FavoriteMovieViewCell.self,
             forCellWithReuseIdentifier: CELL_IDENTIFIER
         )
         collection.dataSource = self
-
+        collection.delegate = self
         
         return collection
     }()
@@ -65,6 +67,16 @@ extension FavoritesMoviesViewController: UICollectionViewDataSource {
         
         return cell
     }
+}
+
+extension FavoritesMoviesViewController: UICollectionViewDelegateFlowLayout {
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        
+        let width = 172//collectionView.frame.width / 3
+        return CGSize(width: width, height: 210)
+    }
+    
 }
 
 #Preview {
