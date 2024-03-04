@@ -7,17 +7,9 @@
 
 import UIKit
 
-class FavoriteMovieViewController: UIViewController {
+class FavoriteMovieViewCell: UICollectionViewCell {
 
     // MARK: - UI components
-    
-    private lazy var mainView: UIView = {
-        let view = UIView()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = .white
-        
-        return view
-    }()
     
     private lazy var imageView: UIImageView = {
         let image = UIImageView()
@@ -50,49 +42,49 @@ class FavoriteMovieViewController: UIViewController {
         return button
     }()
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        view.backgroundColor = .darkGray
-
-        view.addSubview(mainView)
-        view.addSubview(imageView)
-        view.addSubview(titleMovie)
-        view.addSubview(favoriteButton)
+    override init(frame: CGRect) {
+        super.init(frame: frame)
         
+        backgroundColor = .darkGray
+        addSubview(imageView)
+        addSubview(titleMovie)
+        addSubview(favoriteButton)
         setupConstraints()
         
-        setupView(Movie(
-            id: "", title: "Avatar",
-            image: "https://github.com/giovannamoeller/movie-api/blob/main/images/avatar.jpg?raw=true",
-            synopsis: "alfdakfa", rate: 9.8, releaseDate: "10/10/2030"
-        ))
+        /*setupView(Movie(
+            id: "22",
+            title: "Avengers",
+            image: "https://raw.githubusercontent.com/alura-cursos/movie-api/main/images/vingadores-ultimato.jpg",
+            synopsis: "",
+            rate: 9.9,
+            releaseDate: "")
+        )
+         */
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
     private func setupConstraints() {
         NSLayoutConstraint.activate([
-            mainView.topAnchor.constraint(equalTo: view.topAnchor, constant: 100),
-            mainView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            mainView.widthAnchor.constraint(equalToConstant: 150),
-            mainView.heightAnchor.constraint(equalToConstant: 200),
-            
-            imageView.topAnchor.constraint(equalTo: mainView.topAnchor),
-            imageView.leadingAnchor.constraint(equalTo: mainView.leadingAnchor),
-            imageView.trailingAnchor.constraint(equalTo: mainView.trailingAnchor),
+            imageView.topAnchor.constraint(equalTo: topAnchor),
+            imageView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            imageView.trailingAnchor.constraint(equalTo: trailingAnchor),
             imageView.heightAnchor.constraint(equalToConstant: 140),
             
             titleMovie.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 12),
-            titleMovie.leadingAnchor.constraint(equalTo: mainView.leadingAnchor),
-            titleMovie.trailingAnchor.constraint(equalTo: mainView.trailingAnchor),
+            titleMovie.leadingAnchor.constraint(equalTo: leadingAnchor),
+            titleMovie.trailingAnchor.constraint(equalTo: trailingAnchor),
             
             favoriteButton.topAnchor.constraint(equalTo: titleMovie.bottomAnchor, constant: 7),
             favoriteButton.heightAnchor.constraint(equalToConstant: 25),
             favoriteButton.widthAnchor.constraint(equalToConstant: 25),
-            favoriteButton.centerXAnchor.constraint(equalTo: mainView.centerXAnchor)
-            
+            favoriteButton.centerXAnchor.constraint(equalTo: centerXAnchor)
         ])
     }
     
-    private func setupView(_ movie: Movie) {
+    func setupView(_ movie: Movie) {
         imageView.kf.setImage(with: URL(string: movie.image))
         titleMovie.text = movie.title
     }
@@ -105,5 +97,5 @@ class FavoriteMovieViewController: UIViewController {
 }
 
 #Preview {
-    FavoriteMovieViewController()
+    FavoriteMovieViewCell()
 }

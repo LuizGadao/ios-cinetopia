@@ -9,6 +9,8 @@ import UIKit
 
 class FavoritesMoviesViewController: UIViewController {
 
+    private let CELL_IDENTIFIER = "FavoriteMovieViewCell"
+    
     // MARK: - UI components
     
     private lazy var collectionView: UICollectionView = {
@@ -16,6 +18,12 @@ class FavoritesMoviesViewController: UIViewController {
                                           collectionViewLayout: UICollectionViewFlowLayout())
         collection.translatesAutoresizingMaskIntoConstraints = false
         collection.backgroundColor = .yellow
+        collection.register(
+            FavoriteMovieViewCell.self,
+            forCellWithReuseIdentifier: CELL_IDENTIFIER
+        )
+        collection.dataSource = self
+
         
         return collection
     }()
@@ -41,6 +49,22 @@ class FavoritesMoviesViewController: UIViewController {
         ])
     }
 
+}
+
+extension FavoritesMoviesViewController: UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return myListMovies.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CELL_IDENTIFIER, for: indexPath) as? FavoriteMovieViewCell else {
+            fatalError("error to create favorite movie cell")
+        }
+        
+        cell.setupView(myListMovies[indexPath.item])
+        
+        return cell
+    }
 }
 
 #Preview {
