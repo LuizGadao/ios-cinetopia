@@ -19,7 +19,7 @@ class MoviesViewController: UIViewController {
     private lazy var tableView: UITableView = {
         let tableView = UITableView()
         tableView.translatesAutoresizingMaskIntoConstraints = false
-        tableView.backgroundColor = .clear
+        tableView.backgroundColor = .background
         tableView.dataSource = self
         tableView.delegate = self
         tableView.register(MovieTableViewCell.self, forCellReuseIdentifier: cellIdentifier)
@@ -70,7 +70,6 @@ class MoviesViewController: UIViewController {
     
     private func addSubViews() {
         view.addSubview(tableView)
-        view.addSubview(searchBar)
     }
     
     private func setupConstraints() {
@@ -84,25 +83,11 @@ class MoviesViewController: UIViewController {
     
     private func setupNavigationBar() {
         navigationItem.titleView = searchBar
-        
-        navigationItem.setHidesBackButton(true, animated: true)
-        let navigationBar = navigationController?.navigationBar
-        navigationBar?.standardAppearance.configureWithOpaqueBackground()
-        navigationBar?.standardAppearance.backgroundColor = .background
-        navigationBar?.standardAppearance.largeTitleTextAttributes = [
-            NSAttributedString.Key.foregroundColor: UIColor.white
-        ]
-        navigationBar?.scrollEdgeAppearance = navigationBar?.standardAppearance
-        navigationController?.navigationBar.largeTitleTextAttributes = [
-            NSAttributedString.Key.foregroundColor : UIColor.white
-        ]
-        title = "Filmes populares"
     }
     
     
     override func viewWillAppear(_ animated: Bool) {
         print("view-will-appear")
-        navigationController?.navigationBar.prefersLargeTitles = true
         searchBar.showsCancelButton = listMovies.count != movies.count
     }
     

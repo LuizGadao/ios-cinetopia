@@ -25,7 +25,7 @@ class FavoriteMovieViewCell: UICollectionViewCell {
         let title = UILabel()
         title.translatesAutoresizingMaskIntoConstraints = false
         title.font = .systemFont(ofSize: 20, weight: .medium)
-        title.textColor = .black
+        title.textColor = .white
         title.textAlignment = .center
         title.numberOfLines = 1
         

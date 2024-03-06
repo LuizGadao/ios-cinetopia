@@ -80,7 +80,7 @@ class HomeViewController: UIViewController {
     
     @objc private func onButtonClick() {
         print("on button clicked")
-        navigationController?.pushViewController(MoviesViewController(), animated: true)
+        navigationController?.pushViewController(TabBarViewController(), animated: true)
     }
     
     private func addViews() {
