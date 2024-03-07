@@ -42,7 +42,7 @@ class FavoritesMoviesViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        navigationItem.setHidesBackButton(true, animated: true)
+        navigationController?.setNavigationBarHidden(true, animated: true)
         view.backgroundColor = .background
         view.addSubview(collectionView)
         setupConstraints()

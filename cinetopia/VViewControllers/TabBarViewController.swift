@@ -16,8 +16,9 @@ class TabBarViewController: UITabBarController {
     
     private func setupTabBar() {
         styleTabBar()
-        navigationItem.hidesBackButton = true
-        navigationController?.setNavigationBarHidden(true, animated: false)
+        self.navigationItem.setHidesBackButton(true, animated: true)
+        //navigationItem.hidesBackButton = true
+        //navigationController?.setNavigationBarHidden(true, animated: false)
         
         let home = UINavigationController(rootViewController: MoviesViewController())
         let symbomConfig = UIImage.SymbolConfiguration(scale: .medium)

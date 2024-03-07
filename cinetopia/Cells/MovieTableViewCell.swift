@@ -42,16 +42,34 @@ class MovieTableViewCell: UITableViewCell {
         return label
     }()
     
+    private lazy var favoriteButton: UIButton = {
+        let button = UIButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        let icon =  UIImage(systemName: "heart")?.withTintColor(.red, renderingMode: .alwaysOriginal)
+        button.setImage(icon, for: .normal)
+        // button.addTarget(self, action: #selector(onClickFavorite), for: .touchUpInside)
+        
+        return button
+    }()
+    
     func setupCell(movie: Movie) {
         titleLabel.text = movie.title
         posterImage.kf.setImage(with: URL(string: movie.image))
         releaseDateLabel.text = "Lançamento: \(movie.releaseDate)"
+        
+        let heart = "heart"
+        let heartFill = "heartFill"
+        
+        let icon = UIImage(systemName: movie.isSelected == true ? heartFill : heart)?
+            .withTintColor(.red, renderingMode: .alwaysOriginal)
+        favoriteButton.setImage(icon, for: .normal)
     }
     
     private func addSubvies() {
         addSubview(posterImage)
         addSubview(titleLabel)
         addSubview(releaseDateLabel)
+        addSubview(favoriteButton)
     }
     
     private func setupConstraints() {
@@ -66,7 +84,12 @@ class MovieTableViewCell: UITableViewCell {
             titleLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
             
             releaseDateLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 8),
-            releaseDateLabel.leadingAnchor.constraint(equalTo: titleLabel.leadingAnchor, constant: 0)
+            releaseDateLabel.leadingAnchor.constraint(equalTo: titleLabel.leadingAnchor, constant: 0),
+            
+            favoriteButton.topAnchor.constraint(equalTo: releaseDateLabel.bottomAnchor, constant: 8),
+            favoriteButton.leadingAnchor.constraint(equalTo: titleLabel.leadingAnchor),
+            favoriteButton.heightAnchor.constraint(equalToConstant: 25),
+            favoriteButton.widthAnchor.constraint(equalToConstant: 25),
         ])
     }
     
@@ -96,6 +119,6 @@ class MovieTableViewCell: UITableViewCell {
 
 
  #Preview {
- MovieTableViewCell()
+     MovieTableViewCell()
  }
  

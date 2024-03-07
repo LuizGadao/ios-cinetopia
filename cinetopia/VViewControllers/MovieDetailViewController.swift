@@ -87,6 +87,7 @@ class MovieDetailViewController: UIViewController {
         view.backgroundColor = .background
         //title = movie.title
         
+        navigationController?.navigationBar.prefersLargeTitles = false
         addViews()
         setupConstraints()
         
