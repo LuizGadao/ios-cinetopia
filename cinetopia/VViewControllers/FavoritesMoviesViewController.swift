@@ -63,7 +63,7 @@ class FavoritesMoviesViewController: UIViewController {
 
 extension FavoritesMoviesViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return myListMovies.count
+        return 0 //myListMovies.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -71,7 +71,7 @@ extension FavoritesMoviesViewController: UICollectionViewDataSource {
             fatalError("error to create favorite movie cell")
         }
         
-        cell.setupView(myListMovies[indexPath.item])
+        //cell.setupView(myListMovies[indexPath.item])
         
         return cell
     }

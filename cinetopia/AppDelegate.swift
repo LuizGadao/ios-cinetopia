@@ -16,9 +16,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         
         
-        //UINavigationBar.appearance().isTranslucent = true
-        //UINavigationBar.appearance().barTintColor = .background
-        
+        UINavigationBar.appearance().isTranslucent = true
+        UINavigationBar.appearance().barTintColor = .background
         
         return true
     }

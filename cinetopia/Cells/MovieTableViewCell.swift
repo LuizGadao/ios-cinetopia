@@ -47,7 +47,7 @@ class MovieTableViewCell: UITableViewCell {
         button.translatesAutoresizingMaskIntoConstraints = false
         let icon =  UIImage(systemName: "heart")?.withTintColor(.red, renderingMode: .alwaysOriginal)
         button.setImage(icon, for: .normal)
-        // button.addTarget(self, action: #selector(onClickFavorite), for: .touchUpInside)
+        button.addTarget(self, action: #selector(onClickFavorite), for: .touchUpInside)
         
         return button
     }()
@@ -69,7 +69,8 @@ class MovieTableViewCell: UITableViewCell {
         addSubview(posterImage)
         addSubview(titleLabel)
         addSubview(releaseDateLabel)
-        addSubview(favoriteButton)
+        //addSubview(favoriteButton)
+        contentView.addSubview(favoriteButton)
     }
     
     private func setupConstraints() {
@@ -113,6 +114,11 @@ class MovieTableViewCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state
+    }
+    
+    @objc
+    func onClickFavorite(sender: UIButton) {
+        print("favorite click")
     }
 
 }
