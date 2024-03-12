@@ -7,6 +7,10 @@
 
 import UIKit
 
+protocol FavoriteMovieViewCellDelegate : AnyObject {
+    func onClickFavoriteButton(sender: UIButton)
+}
+
 class FavoriteMovieViewCell: UICollectionViewCell {
 
     // MARK: - UI components
@@ -35,12 +39,14 @@ class FavoriteMovieViewCell: UICollectionViewCell {
     private lazy var favoriteButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
-        let iconImage = UIImage(systemName: "heart.fill")?.withTintColor(.backgroundButton, renderingMode: .alwaysOriginal)
+        let iconImage = UIImage(systemName: "heart.fill")?.withTintColor(.red, renderingMode: .alwaysOriginal)
         button.setImage(iconImage, for: .normal)
         button.addTarget(self, action: #selector(onClickFavoriteButton), for: .touchUpInside)
         
         return button
     }()
+    
+    weak var delegate: FavoriteMovieViewCellDelegate?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -90,7 +96,7 @@ class FavoriteMovieViewCell: UICollectionViewCell {
     
     @objc
     private func onClickFavoriteButton(_ sender: UIButton) {
-        print("onclick favorite button")
+        delegate?.onClickFavoriteButton(sender: sender)
     }
 
 }

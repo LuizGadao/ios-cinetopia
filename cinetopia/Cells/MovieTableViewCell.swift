@@ -8,6 +8,10 @@
 import UIKit
 import Kingfisher
 
+protocol MovieTableViewCellDelegate: AnyObject {
+    func onClickFavoriteButton(cell: MovieTableViewCell)
+}
+
 class MovieTableViewCell: UITableViewCell {
 
     private lazy var posterImage: UIImageView = {
@@ -52,13 +56,35 @@ class MovieTableViewCell: UITableViewCell {
         return button
     }()
     
+    weak var delegate: MovieTableViewCellDelegate?
+    
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
+        addSubvies()
+        setupConstraints()
+        backgroundColor = .background
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        // Initialization code
+    }
+
+    override func setSelected(_ selected: Bool, animated: Bool) {
+        super.setSelected(selected, animated: animated)
+    }
+    
     func setupCell(movie: Movie) {
         titleLabel.text = movie.title
         posterImage.kf.setImage(with: URL(string: movie.image))
         releaseDateLabel.text = "Lançamento: \(movie.releaseDate)"
         
         let heart = "heart"
-        let heartFill = "heartFill"
+        let heartFill = "heart.fill"
         
         let icon = UIImage(systemName: movie.isSelected == true ? heartFill : heart)?
             .withTintColor(.red, renderingMode: .alwaysOriginal)
@@ -69,7 +95,6 @@ class MovieTableViewCell: UITableViewCell {
         addSubview(posterImage)
         addSubview(titleLabel)
         addSubview(releaseDateLabel)
-        //addSubview(favoriteButton)
         contentView.addSubview(favoriteButton)
     }
     
@@ -94,31 +119,11 @@ class MovieTableViewCell: UITableViewCell {
         ])
     }
     
-    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
-        addSubvies()
-        setupConstraints()
-        backgroundColor = .background
-    }
     
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
-    }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
-    }
     
     @objc
-    func onClickFavorite(sender: UIButton) {
-        print("favorite click")
+    func onClickFavorite(cell: MovieTableViewCell) {
+        delegate?.onClickFavoriteButton(cell: self)
     }
 
 }

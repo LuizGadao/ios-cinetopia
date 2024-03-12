@@ -93,6 +93,7 @@ class MoviesViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         print("view-did-apper")
+        tableView.reloadData()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -115,6 +116,7 @@ extension MoviesViewController : UITableViewDataSource, UITableViewDelegate {
         if let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as? MovieTableViewCell {
             cell.setupCell(movie: listMovies[indexPath.row])
             cell.selectionStyle = .none
+            cell.delegate = self
             
             return cell
         }
@@ -133,6 +135,31 @@ extension MoviesViewController : UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         160
+    }
+    
+}
+
+extension MoviesViewController : MovieTableViewCellDelegate {
+    
+    func onClickFavoriteButton(cell: MovieTableViewCell) {
+        //superview.superview for get cell only once get container when the parameter was UIButton
+        // get cell clicked
+        //guard let cell = sender.superview?.superview as? MovieTableViewCell else {
+        //    return
+        //}
+        
+        
+        // get position cell in tableview
+        guard let index = tableView.indexPath(for: cell) else {
+            return
+        }
+        
+        let movie = listMovies[index.row]
+        movie.changeSectionStatus()
+        
+        MovieManager.movieManager.add(movie)
+        tableView.reloadRows(at: [index], with: .automatic)
+        //tableView.reloadData()
     }
     
 }

@@ -48,6 +48,11 @@ class FavoritesMoviesViewController: UIViewController {
         setupConstraints()
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        collectionView.reloadData()
+    }
+    
     // MARK: - methods
     
     private func setupConstraints() {
@@ -63,7 +68,7 @@ class FavoritesMoviesViewController: UIViewController {
 
 extension FavoritesMoviesViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 0 //myListMovies.count
+        return MovieManager.movieManager.favoritesMovies.count //myListMovies.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -71,7 +76,8 @@ extension FavoritesMoviesViewController: UICollectionViewDataSource {
             fatalError("error to create favorite movie cell")
         }
         
-        //cell.setupView(myListMovies[indexPath.item])
+        cell.setupView(MovieManager.movieManager.favoritesMovies[indexPath.item])
+        cell.delegate = self
         
         return cell
     }
@@ -102,6 +108,29 @@ extension FavoritesMoviesViewController: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
         return CGSize(width: collectionView.bounds.width, height: 50)
+    }
+    
+}
+
+extension FavoritesMoviesViewController: FavoriteMovieViewCellDelegate {
+    
+    func onClickFavoriteButton(sender: UIButton) {
+        guard let cell = sender.superview as? FavoriteMovieViewCell else {
+            return
+        }
+        
+        guard let index = collectionView.indexPath(for: cell) else {
+            return
+        }
+        
+        let movie = MovieManager.movieManager.favoritesMovies[index.item]
+        movie.changeSectionStatus()
+        
+        MovieManager.movieManager.remove(movie)
+        
+        //collectionView.reloadData()
+        collectionView.deleteItems(at: [index])
+        print("on click favorite")
     }
     
 }
